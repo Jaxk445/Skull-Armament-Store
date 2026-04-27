@@ -8,7 +8,7 @@ const App = () => {
   const yParallax = useTransform(scrollY, [0, 1000], [0, 200]);
   const opacityHero = useTransform(scrollY, [0, 400], [1, 0]);
 
-  const contactWA = (msg) => window.open(`https://wa.me/628123456789?text=${encodeURIComponent(msg)}`, '_blank');
+  const contactWA = (msg) => window.open(`https://wa.me/6281267746789?text=${encodeURIComponent(msg)}`, '_blank');
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-pitch-black text-white font-syne selection:bg-skull-red selection:text-white">
