@@ -30,7 +30,11 @@ const App = () => {
       {/* --- NAVIGATION --- */}
       <nav className="fixed top-0 w-full z-50 glass-panel border-b border-white/5 py-4 md:py-5 px-4 md:px-8 flex justify-between items-center bg-white/[0.01] backdrop-blur-[40px] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)]">
         <div className="flex items-center gap-3 md:gap-4 group cursor-pointer">
-          <div className="w-8 h-8 md:w-9 md:h-9 bg-white flex items-center justify-center font-display text-black text-lg md:text-xl italic transition-transform group-hover:rotate-12">SA</div>
+          <img 
+            src="/logo-skull-armament.png" 
+            alt="Skull Armament Logo" 
+            className="w-10 h-10 md:w-12 md:h-12 object-contain transition-transform group-hover:scale-110"
+          />
           <div>
             <div className="font-display text-xl md:text-2xl tracking-[0.2em] uppercase leading-none">SKULL<span className="text-white/30 hidden sm:inline">ARMAMENT</span></div>
             <div className="font-mono text-[6px] md:text-[7px] text-slate-500 tracking-[0.4em] uppercase hidden sm:block mt-1">Tech_Operator // 2026</div>
@@ -42,9 +46,24 @@ const App = () => {
         </div>
       </nav>
 
-      {/* --- HERO SECTION --- */}
-      <header className="relative pt-32 md:pt-48 pb-20 md:pb-32 px-4 md:px-8 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-        <motion.div style={{ opacity: opacityHero }} className="w-full lg:w-2/3 text-left z-10">
+     {/* --- HERO SECTION --- */}
+      <header className="relative pt-32 md:pt-48 pb-20 md:pb-32 px-4 md:px-8 max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
+        
+        {/* CENTERED STATIC WATERMARK LOGO (Sekarang Terlihat Jelas!) */}
+        <motion.div 
+          style={{ opacity: opacityHero }}
+          className="absolute inset-0 flex items-center justify-center pointer-events-none z-0"
+        >
+          <img 
+            src="/logo-skull-armament.png" 
+            alt="Skull Background" 
+            // Opacity dinaikkan jadi 20%, blur dikurangi jadi 2px agar bentuknya terlihat jelas
+            className="w-[150vw] sm:w-[500px] md:w-[600px] lg:w-[700px] object-contain opacity-20 grayscale blur-[2px]"
+          />
+        </motion.div>
+
+        {/* Kiri: Teks Hero (Z-index dinaikkan agar berada di atas logo) */}
+        <motion.div style={{ opacity: opacityHero }} className="w-full lg:w-2/3 text-left relative z-10">
           
           <div className="inline-flex items-center gap-2 md:gap-3 px-3 py-1 md:px-4 md:py-1.5 glass-panel rounded-full mb-6 md:mb-10 border border-white/10 w-fit bg-white/[0.01] backdrop-blur-[40px]">
             <span className="relative flex h-2 w-2">
@@ -73,22 +92,27 @@ const App = () => {
           </div>
         </motion.div>
 
-        {/* Right: Technical HUD Circle */}
+        {/* Kanan: Technical HUD Circle (Z-index dinaikkan) */}
         <motion.div 
-          style={{ y: yParallax }}
-          className="w-full lg:w-1/3 relative flex items-center justify-center h-[300px] md:h-[400px] mt-12 lg:mt-0 scale-75 md:scale-100"
+          style={{ y: yParallax, opacity: opacityHero }} 
+          className="w-full lg:w-1/3 relative flex items-center justify-center h-[300px] md:h-[400px] mt-12 lg:mt-0 scale-75 md:scale-100 group cursor-crosshair z-10"
         >
-          <div className="absolute w-56 h-56 md:w-72 md:h-72 border border-white/5 rounded-full animate-pulse" />
-          <div className="relative w-48 h-48 md:w-64 md:h-64 border-2 border-dashed border-white/10 rounded-full flex items-center justify-center p-8 animate-[spin_20s_linear_infinite]">
-             <div className="w-full h-full border border-skull-red/20 rounded-full border-t-skull-red" />
-          </div>
-          <div className="absolute w-10 h-10 md:w-12 md:h-12 glass-panel border-white/20 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(255,0,0,0.2)] bg-white/[0.01] backdrop-blur-[40px]">
+          {/* Cincin Radar Luar */}
+          <div className="absolute z-10 w-56 h-56 md:w-72 md:h-72 border border-white/5 rounded-full animate-pulse transition-colors duration-500 group-hover:border-skull-red/20" />
+          
+          {/* Cincin Radar Putar */}
+          <div className="absolute z-10 w-48 h-48 md:w-64 md:h-64 border-2 border-dashed border-white/10 rounded-full animate-[spin_20s_linear_infinite] transition-colors duration-500 group-hover:border-skull-red/30" />
+          
+          {/* Lensa Tengah (Crosshair) */}
+          <div className="absolute z-20 w-10 h-10 md:w-12 md:h-12 glass-panel border-white/20 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(255,0,0,0.2)] bg-white/[0.01] backdrop-blur-[40px] transition-colors duration-500 group-hover:border-skull-red/50">
             <Crosshair size={18} className="text-skull-red" />
           </div>
-          <div className="absolute top-10 right-0 md:-right-4 font-mono text-[6px] md:text-[7px] text-white/20 uppercase tracking-[0.5em]" style={{ writingMode: 'vertical-rl' }}>
+
+          {/* Micro Data Labels */}
+          <div className="absolute z-20 top-10 right-0 md:-right-4 font-mono text-[6px] md:text-[7px] text-white/20 uppercase tracking-[0.5em]" style={{ writingMode: 'vertical-rl' }}>
             Alignment: True
           </div>
-          <div className="absolute bottom-10 left-0 md:-left-4 font-mono text-[6px] md:text-[7px] text-white/20 uppercase tracking-[0.5em]">
+          <div className="absolute z-20 bottom-10 left-0 md:-left-4 font-mono text-[6px] md:text-[7px] text-white/20 uppercase tracking-[0.5em]">
             Scan_Freq: 144Hz
           </div>
         </motion.div>
@@ -123,15 +147,11 @@ const App = () => {
           <div className="font-mono text-[7px] md:text-[8px] text-white/10 tracking-[0.5em] uppercase">Skull_Vault_2026</div>
         </div>
         
-        {/* Adjusted to grid-cols-3 on large screens since we have 6 items */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {PRODUCTS.map((p, i) => (
             <div key={i} className="glass-panel p-6 md:p-8 group cursor-pointer border border-white/5 bg-white/[0.01] backdrop-blur-[40px] flex flex-col">
               
-              {/* Kotak Gambar */}
               <div className="aspect-video sm:aspect-[4/3] bg-white/5 rounded-sm mb-6 flex items-center justify-center relative overflow-hidden border border-transparent group-hover:border-white/10 transition-colors">
-                
-                {/* Logika: Jika ada gambar, tampilkan gambar. Jika tidak, tampilkan Icon Package */}
                 {p.image ? (
                   <img 
                     src={p.image} 
@@ -142,7 +162,6 @@ const App = () => {
                   <Package size={36} md:size={48} className="text-white/5 group-hover:text-skull-red/20 transition-all duration-700" />
                 )}
 
-                {/* Label Kategori (RENTAL/3DP/STOK) */}
                 <div className="absolute top-0 left-0 bg-white text-black text-[7px] md:text-[8px] font-black px-2 py-1 uppercase tracking-tighter italic z-10">
                   {p.cat}
                 </div>
@@ -158,10 +177,14 @@ const App = () => {
       </section>
 
       {/* --- FOOTER --- */}
-      <footer className="py-24 md:py-48 text-center border-t border-white/5 relative bg-white/[0.01] overflow-hidden">
+      <footer className="py-24 md:py-48 text-center border-t border-white/5 relative bg-white/[0.01] overflow-hidden group">
         <div className="font-display text-[25vw] md:text-[15vw] text-white/[0.02] md:text-white/[0.01] absolute bottom-[10%] md:bottom-[-5%] left-1/2 -translate-x-1/2 leading-none select-none pointer-events-none italic uppercase whitespace-nowrap">Precision</div>
         <div className="relative z-10 px-4 flex flex-col items-center gap-4 md:gap-6">
-          <ShieldCheck size={24} md:size={32} className="text-white/10" />
+          <img 
+            src="/logo-skull-armament.png" 
+            alt="Skull Armament Logo" 
+            className="w-16 h-16 md:w-20 md:h-20 object-contain opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500" 
+          />
           <p className="font-mono text-[7px] md:text-[9px] text-white/20 uppercase tracking-[0.5em] md:tracking-[1em]">Skull Armament Workshop Indonesia</p>
         </div>
       </footer>
